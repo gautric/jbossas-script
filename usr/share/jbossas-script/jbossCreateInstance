@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# This script creates an new JBoss instance
+# Official JBoss RPM needed
+#
+
+. `dirname $0`/functions
+
+JBOSS_EAP6_DEFAULT_CONFIG=/etc/sysconfig/jbossas
+JBOSS_EAP6_CONFIG=${JBOSS_DEFAULT_CONFIG:-"standalone"}
+JBOSS_EAP6_CONFIG_DIR=${JBOSS_CONF_DIR:-"/usr/share/jbossas-configuration"}
+JBOSS_EAP6_DEFAULT_JBOSS_USER=${JBOSS_USER:-"jboss"}
+JBOSS_EAP6_DEFAULT_JBOSS_GROUP=${JBOSS_GROUP:-"jboss"}
+JBOSS_EAP6_DEFAULT_HOME=${JBOSS_HOME:-"/usr/share/jbossas"}
+
+
+#Creation d'une instance standalone
+
+INSTANCE_NAME=$1
+
+#Control
+[ -f /etc/sysconfig/${INSTANCE_NAME} ] && ERROR "L'instance '${INSTANCE_NAME}' existe déja " && exit 1
+
+JBOSS_BASE_DIR="/var/lib/jbossas/${INSTANCE_NAME}" 
+
+mkdir /var/log/jbossas/${INSTANCE_NAME}
+mkdir /var/cache/jbossas/${INSTANCE_NAME}
+
+#Ou Configuration tunnée
+cp -rf ${JBOSS_EAP6_CONFIG_DIR} /etc/jbossas/${INSTANCE_NAME}
+rm -rf /etc/jbossas/${INSTANCE_NAME}/standalone-*.xml
+
+#Script system V
+ln -sf /etc/init.d/jbossas /etc/init.d/${INSTANCE_NAME}
+
+#Ou Configuration tunnée
+#cp -rf ${JBOSS_EAP6_DEFAULT_CONFIG} /etc/sysconfig/${INSTANCE_NAME}
+cat etc_sysconfig_intanceName | sed "s/XXX/${INSTANCE_NAME}/" > /etc/sysconfig/${INSTANCE_NAME}
+
+mkdir ${JBOSS_BASE_DIR}
+mkdir ${JBOSS_BASE_DIR}/bin
+mkdir ${JBOSS_BASE_DIR}/data
+mkdir ${JBOSS_BASE_DIR}/deployments
+mkdir ${JBOSS_BASE_DIR}/lib
+mkdir ${JBOSS_BASE_DIR}/lib/ext
+mkdir ${JBOSS_BASE_DIR}/modules
+
+ln -sf /var/log/jbossas/${INSTANCE_NAME}   ${JBOSS_BASE_DIR}/log
+ln -sf /var/cache/jbossas/${INSTANCE_NAME} ${JBOSS_BASE_DIR}/tmp
+ln -sf /etc/jbossas/${INSTANCE_NAME}       ${JBOSS_BASE_DIR}/configuration
+ln -sf ${JBOSS_EAP6_DEFAULT_HOME}/modules/system     ${JBOSS_BASE_DIR}/modules/system
+ln -sf ${JBOSS_EAP6_DEFAULT_HOME}/bin/standalone.sh  ${JBOSS_EAP6_DEFAULT_HOME}/bin/${INSTANCE_NAME}.sh
+
+chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/lib/jbossas/${INSTANCE_NAME}
+chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/log/jbossas/${INSTANCE_NAME}
+chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/cache/jbossas/${INSTANCE_NAME} 
+chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /etc/jbossas/${INSTANCE_NAME}
+chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /etc/sysconfig/${INSTANCE_NAME}
+
+exit $RETVAL
+

@@ -1,0 +1,58 @@
+#!/bin/sh
+
+#
+# Helper functions
+#
+
+
+COMMAND=logging
+
+RETVAL=0
+RETKO=1
+OFFSET=100
+
+function retrieveIP {
+   ifconfig $1 | grep 'inet ' |  awk '{ print $2}' | sed 's/addr://'
+}
+
+function portOffset {
+  find  /etc/init.d/* -xtype l -follow -inum `ls -i "/etc/init.d/jbossas" | cut -f1 -d' '` | cut -f4 -d'/' | awk -v offset=${OFFSET} '{print (NR-1)*offset  " XXX" $1 "XXX" }' | grep "XXX${1}XXX" | awk '{print $1}'
+}
+
+function logging {
+   internal_echo $*
+   internal_logger $*
+}
+
+function internal_echo {
+   FIRST=$1
+   shift 
+   echo "["$FIRST"]" $*
+}
+
+function internal_logger {
+  logger -t `basename $0`"["$$"]" $* 
+}
+
+function log {
+   FIRST=$1
+   shift 
+   ${COMMAND} $FIRST $*
+}
+
+function INFO {
+   log "INFO" $*
+}
+
+function DEBUG {
+   [ ! -z ${LOGGER_DEBUG} ] && log "DEBUG" $*
+}
+
+function ERROR {
+   log "ERROR" $*
+}
+
+function WARN {
+   log "WARN" $*
+}
+

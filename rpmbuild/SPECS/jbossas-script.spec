@@ -1,11 +1,10 @@
-%global  version     0.9
-%global  sp          FP5
+%global version 0.9
 
 Summary:        JBoss Script for JBoss RPM %{version}
 Name:           jbossas-script
-Version:        %{sp}
-Release:        22
-License:        none
+Version:        %{version}
+Release:        5
+License:        GPL
 Source:         %{name}.tar.gz
 # This package doesn't contain any binary files so it's architecture independent, hence
 # specify noarch for the BuildArch.
@@ -13,6 +12,7 @@ BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-build
 Group:          System/Base
 Requires:       java >= 1.7
+Requires:       bash
 
 %description
 This package provides some script for JBoss EAP 6.X (RPM mode) %{name} %{version}
@@ -23,32 +23,50 @@ This package provides some script for JBoss EAP 6.X (RPM mode) %{name} %{version
 %build
 
 %install
-# create directories where the files will be located
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/java
+rm -rf ${RPM_BUILD_ROOT}
 
-# put the files in to the relevant directories.
-# the argument on -m is the permissions expressed as octal. (See chmod man page for details.)
-install -m 444 db2jcc.jar $RPM_BUILD_ROOT%{_datadir}/java/db2jcc-%{db2version}-${DB2_BUILD_VERSION}.jar
-install -m 444 db2jcc4.jar $RPM_BUILD_ROOT%{_datadir}/java/db2jcc4-%{db2version}-${DB2_4_BUILD_VERSION}.jar
+# Directory structure
 
-pushd $RPM_BUILD_ROOT%{_datadir}/java
-ln -s db2jcc-%{db2version}-${DB2_BUILD_VERSION}.jar db2jcc-%{db2version}.jar
-ln -s db2jcc4-%{db2version}-${DB2_4_BUILD_VERSION}.jar db2jcc4-%{db2version}.jar
+mkdir -p ${RPM_BUILD_ROOT}/etc/profile.d
+mkdir -p ${RPM_BUILD_ROOT}/usr/bin
+mkdir -p ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+
+# Copy
+
+install -m 755 jboss 			${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 755 jbossas.sh 		${RPM_BUILD_ROOT}/usr/share/jbossas-script
+
+install -m 444 functions 		${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 jbossCreateInstance 	${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 jbossDeleteInstance	${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 jbossListConfiguration 	${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 jbossListIntance 	${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 etc_sysconfig_intanceName ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+
+# Symbolic link
+
+pushd ${RPM_BUILD_ROOT}/usr/bin
+ln -s ../share/jbossas-script/jboss jboss
+popd
+
+pushd ${RPM_BUILD_ROOT}/etc/profile.d
+ln -s ../../usr/share/jbossas-script/jbossas.sh jbossas.sh
 popd
 
 %post
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf ${RPM_BUILD_ROOT}
 rm -rf %{_tmppath}/%{name}
 rm -rf %{_topdir}/BUILD/%{name}
 
 # list files owned by the package here
 %files
-%defattr(-,root,root)
-%{_datadir}/java/*.jar
-
+%defattr(755,root,root)
+/etc/profile.d/jbossas.sh
+/usr/bin/jboss
+%{_datadir}/jbossas-script/*
 
 %changelog
-* Wed Jun 20 2014 First Version
+* Fri Jun 20 2014 First Version
 - ${release} 

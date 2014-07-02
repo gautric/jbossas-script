@@ -5,11 +5,12 @@
 
 . `dirname $0`/functions
 
-JBOSS_EAP6_DEFAULT_USER=${2:-"admin"}
-JBOSS_EAP6_DEFAULT_PASSWORD=${3:-"admin123_"}
-JBOSS_EAP6_DEFAULT_REALM=${4:-"ManagementRealm"}
-JBOSS_EAP6_DEFAULT_HOME=${JBOSS_HOME:-"/usr/share/jbossas"}
-JBOSS_EAP6_DEFAULT_USERFILE=${JBOSS_EAP6_USERFILE:-"mgmt-users.properties"}
+JBOSS_EAP6_USER=${2:-"admin"}
+JBOSS_EAP6_PASSWORD=${3:-"admin123_"}
+JBOSS_EAP6_REALM=${4:-"ManagementRealm"}
+JBOSS_EAP6_HOME=${JBOSS_HOME:-"/usr/share/jbossas"}
+JBOSS_EAP6_FILE=${JBOSS_EAP6_USERFILE:-"mgmt-users.properties"}
+
 INSTANCE_NAME=${1}
 
 [ -z "${INSTANCE_NAME}" ] && ERROR "No instance name provided" &&  exit $RETKO
@@ -18,6 +19,6 @@ INSTANCE_NAME=${1}
 
 . /etc/sysconfig/${INSTANCE_NAME}
 
-${JBOSS_EAP6_DEFAULT_HOME}/bin/add-user.sh -s ${JBOSSSH_OPTS} -u $JBOSS_EAP6_DEFAULT_USER -p $JBOSS_EAP6_DEFAULT_PASSWORD  -r ${JBOSS_EAP6_DEFAULT_REALM} -up ${JBOSS_BASE_DIR}/configuration/${JBOSS_EAP6_DEFAULT_USERFILE}
+${JBOSS_EAP6_HOME}/bin/add-user.sh -s ${JBOSSSH_OPTS} -u $JBOSS_EAP6_USER -p $JBOSS_EAP6_PASSWORD  -r ${JBOSS_EAP6_DEFAULT_REALM} -up ${JBOSS_BASE_DIR}/configuration/${JBOSS_EAP6_FILE}
 
 exit $RETVAL

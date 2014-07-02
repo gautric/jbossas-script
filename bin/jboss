@@ -3,15 +3,16 @@
 # This script provides some 
 #
 
-# Current mode
-[ -f `dirname $0`/functions ] && . `dirname $0`/functions
-# RPM mode
-[ ! -f `dirname $0`/functions ] && . /usr/share/jbossas-script/functions
+COMMAND_DIRECTORY=`dirname $0`
 
+# RPM mode
+[ ! -f ${COMMAND_DIRECTORY}/functions ] && COMMAND_DIRECTORY=/usr/share/jbossas-script
+
+. ${COMMAND_DIRECTORY}/functions 
 
     case "$1" in
         create)
-            sh jbossCreateInstance $2
+            sh ${COMMAND_DIRECTORY}/jbossCreateInstance $2
             exit $RETVAL
         ;;
 
@@ -26,22 +27,22 @@
         ;;
 
         delete)
-            sh jbossDeleteInstance $2
+            sh ${COMMAND_DIRECTORY}/jbossDeleteInstance $2
             exit $RETVAL
         ;;
 
         list)
-            sh jbossListIntance
+            sh ${COMMAND_DIRECTORY}/jbossListIntance
             exit $RETVAL
         ;;
 
         clean)
-            sh jbossCleanInstance $2
+            sh ${COMMAND_DIRECTORY}/jbossCleanInstance $2
             exit $RETVAL
         ;;
 
 	adduser)
-           sh jbossAddUserInstance $2 $3 $4
+           sh ${COMMAND_DIRECTORY}/jbossAddUserInstance $2 $3 $4
            exit $RETVAL
         ;;	
 

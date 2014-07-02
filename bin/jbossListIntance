@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# This script list all JBoss instance
+#
+
+. `dirname $0`/functions
+
+#List of instance via INITD symb link
+JBOSS_EAP6_DEFAULT_INITD_SCRIPT=${JBOSS_INITD_SCRIPT:-"/etc/init.d/jbossas"}
+
+[ ! -f ${JBOSS_EAP6_DEFAULT_INITD_SCRIPT} ] && ERROR "Please check jbossas package" && exit $RETKO
+
+find  /etc/init.d/* -xtype l -follow -inum `ls -i ${JBOSS_EAP6_DEFAULT_INITD_SCRIPT} | cut -f1 -d' '` | cut -f4 -d'/'
+
+exit $RETVAL
+

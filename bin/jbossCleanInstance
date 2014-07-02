@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# This script clean JBoss instance
+#
+
+. `dirname $0`/functions
+
+INSTANCE_NAME=${1}
+
+[ -z "${INSTANCE_NAME}" ] && ERROR "No instance name provided" &&  exit RETKO
+
+[ ! -f /etc/sysconfig/${INSTANCE_NAME} ] && ERROR "L'instance '${INSTANCE_NAME}' n'existe pas " && exit $RETKO
+
+service ${INSTANCE_NAME} stop 
+
+rm -rf /var/lib/jbossas/${INSTANCE_NAME}/data/*
+rm -rf /var/lib/jbossas/${INSTANCE_NAME}/log/*
+rm -rf /var/lib/jbossas/${INSTANCE_NAME}/tmp/*
+rm -rf /var/lib/jbossas/${INSTANCE_NAME}/configuration/standalone_xml_history
+
+exit 0

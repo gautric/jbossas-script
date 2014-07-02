@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# This script list all JBoss instance
+#
+
+. `dirname $0`/functions
+
+#List of instance via INITD symb link
+JBOSS_CONF_DIR=${JBOSS_CONF_DIR:-"/usr/share/jbossas-configuration"}
+
+[ ! -d ${JBOSS_CONF_DIR} ] && ERROR "Please check jbossas-configuration package" && exit $RETKO
+
+ls ${JBOSS_CONF_DIR}
+
+exit $RETVAL

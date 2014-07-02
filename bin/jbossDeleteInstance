@@ -1,0 +1,25 @@
+#!/bin/sh
+
+. `dirname $0`/functions
+
+INSTANCE_NAME=${1}
+
+[ -z "${INSTANCE_NAME}" ] && ERROR "No instance name provided" &&  exit RETKO
+
+[ ! -f /etc/sysconfig/${INSTANCE_NAME} ] && ERROR "L'instance '${INSTANCE_NAME}' n'existe pas " && exit $RETKO
+
+JBOSS_EAP6_DEFAULT_HOME=${JBOSS_HOME:-"/usr/share/jbossas"}
+JBOSSPID=${JBOSSPID:-"/var/run/jbossas-$INSTANCE_NAME"}
+
+service ${INSTANCE_NAME} stop 
+
+rm -rf /var/lib/jbossas/${INSTANCE_NAME}
+rm -rf /etc/jbossas/${INSTANCE_NAME}
+rm -rf /var/log/jbossas/${INSTANCE_NAME}
+rm -rf /var/cache/jbossas/${INSTANCE_NAME}
+rm -f /etc/sysconfig/${INSTANCE_NAME}
+rm -f /etc/init.d/${INSTANCE_NAME}
+rm -f ${JBOSSPID}
+rm -rf ${JBOSS_EAP6_DEFAULT_HOME}/bin/${INSTANCE_NAME}.sh
+
+exit $RETVAL

@@ -1,5 +1,5 @@
 
-EXECUTE=`ps -elf | grep "/bin/sh -c export JAVA_HOME" | grep "standalone.sh" `
+EXECUTE=`ps -elf | grep "/bin/sh -c export JAVA_HOME"`
 
 for var in $EXECUTE
 do

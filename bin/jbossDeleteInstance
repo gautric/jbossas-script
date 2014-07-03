@@ -11,8 +11,6 @@ INSTANCE_NAME=${1}
 JBOSS_EAP6_DEFAULT_HOME=${JBOSS_HOME:-"/usr/share/jbossas"}
 JBOSSPID=${JBOSSPID:-"/var/run/jbossas-$INSTANCE_NAME"}
 
-service ${INSTANCE_NAME} stop 
-
 rm -rf /var/lib/jbossas/${INSTANCE_NAME}
 rm -rf /etc/jbossas/${INSTANCE_NAME}
 rm -rf /var/log/jbossas/${INSTANCE_NAME}

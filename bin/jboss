@@ -3,16 +3,20 @@
 # This script provides some 
 #
 
-COMMAND_DIRECTORY=`dirname $0`
+# Retrieve jboss command directory
+JBOSS_SHELL_DIRECTORY=$(dirname "$(readlink -f "$0")")
 
 # RPM mode
-[ ! -f ${COMMAND_DIRECTORY}/functions ] && COMMAND_DIRECTORY=/usr/share/jbossas-script
+[ -f ${JBOSS_SHELL_DIRECTORY}/functions ] && . ${JBOSS_SHELL_DIRECTORY}/functions
 
-. ${COMMAND_DIRECTORY}/functions 
+export PATH=${JBOSS_SHELL_DIRECTORY}:${PATH}
+
+DEBUG JBOSS_SHELL_DIRECTORY=$JBOSS_SHELL_DIRECTORY
+DEBUG PATH=$PATH
 
     case "$1" in
         create)
-            sh ${COMMAND_DIRECTORY}/jbossCreateInstance $2
+            jbossCreateInstance $2
             exit $RETVAL
         ;;
 
@@ -27,22 +31,23 @@ COMMAND_DIRECTORY=`dirname $0`
         ;;
 
         delete)
-            sh ${COMMAND_DIRECTORY}/jbossDeleteInstance $2
+            service $2 stop
+            jbossDeleteInstance $2
             exit $RETVAL
         ;;
 
         list)
-            sh ${COMMAND_DIRECTORY}/jbossListIntance
+            jbossListIntance
             exit $RETVAL
         ;;
 
         clean)
-            sh ${COMMAND_DIRECTORY}/jbossCleanInstance $2
+            jbossCleanInstance $2
             exit $RETVAL
         ;;
 
 	adduser)
-           sh ${COMMAND_DIRECTORY}/jbossAddUserInstance $2 $3 $4
+           jbossAddUserInstance $2 $3 $4
            exit $RETVAL
         ;;	
 

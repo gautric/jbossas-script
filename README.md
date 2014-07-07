@@ -4,11 +4,11 @@ JBoss EAP 6.2+ installed with RPM (cf Red Hat for details) needed.
 
 Scripts provide command to :
 
-* jboss create ${instanceName}
-* jboss start ${instanceName}
-* jboss stop ${instanceName}
-* jboss delete ${instanceName}
-* jboss clean ${instanceName}
+* **jboss create ${instanceName}**
+* **jboss start ${instanceName}**
+* **jboss stop ${instanceName}**
+* **jboss delete ${instanceName}**
+* **jboss clean ${instanceName}**
  
 Bash Auto Completion is also provide
  

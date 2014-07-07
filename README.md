@@ -1,11 +1,8 @@
-jbossas-script
-==============
-
-Script for JBoss EAP 6.X 
+#Script for JBoss EAP 6.X 
 
 JBoss EAP 6.2+ installed with RPM (cf Red Hat for details) needed.
 
-scripts provide command to :
+Scripts provide command to :
 
 * jboss create ${instanceName}
 * jboss start ${instanceName}
@@ -21,7 +18,7 @@ Directory source projet layout
  * bin  : scripts 
  * rpmbuild : rpm build directory
 
-JBoss Standalone Instance layout 
+## JBoss Standalone Instance layout 
 
 def : instanceName
 

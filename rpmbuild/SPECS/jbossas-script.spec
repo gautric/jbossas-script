@@ -27,7 +27,6 @@ This package provides some script for JBoss EAP 6.X (RPM mode) %{name} %{version
 rm -rf ${RPM_BUILD_ROOT}
 
 # Directory structure
-
 mkdir -p ${RPM_BUILD_ROOT}/etc/bash_completion.d
 mkdir -p ${RPM_BUILD_ROOT}/etc/profile.d
 mkdir -p ${RPM_BUILD_ROOT}/usr/bin
@@ -35,20 +34,18 @@ mkdir -p ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 mkdir -p ${RPM_BUILD_ROOT}/usr/share/jbossas-config
 
 # Copy
+install -m 755 jboss 		${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 755 jbossas.sh 	${RPM_BUILD_ROOT}/usr/share/jbossas-script
 
-install -m 755 jboss 			${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 755 jbossas.sh 		${RPM_BUILD_ROOT}/usr/share/jbossas-script
-
-install -m 444 functions 		${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 755 jbossCreateInstance 	${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 755 jbossDeleteInstance	${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 755 jbossListConfiguration 	${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 755 jbossListIntance 	${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 444 etc_sysconfig_intanceName ${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 755 _jboss_complete.bash     ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 functions 		            ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 755 jbossCreateInstance 	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 755 jbossDeleteInstance	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 755 jbossListConfiguration 	    ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 755 jbossListIntance 	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 etc_sysconfig_intanceName    ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 755 _jboss_complete.bash         ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 
 # Symbolic link
-
 pushd ${RPM_BUILD_ROOT}/usr/bin
 ln -s /usr/share/jbossas-script/jboss jboss
 popd

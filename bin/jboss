@@ -31,7 +31,6 @@ DEBUG PATH=$PATH
         ;;
 
         delete)
-            service $2 stop
             jbossDeleteInstance $2
             exit $RETVAL
         ;;

@@ -9,6 +9,7 @@ JBoss EAP 6.2+ installed with RPM (cf Red Hat for details) needed.
 * *jboss stop ${instanceName}*
 * *jboss delete ${instanceName}*
 * *jboss clean ${instanceName}*
+* *jboss adduser ${instanceName}*
  
 Bash Auto Completion is also provide
  

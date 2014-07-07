@@ -2,7 +2,7 @@
 
 JBoss EAP 6.2+ installed with RPM (cf Red Hat for details) needed.
 
-Scripts provide command to :
+### Scripts provide command to :
 
 * *jboss create ${instanceName}*
 * *jboss start ${instanceName}*
@@ -13,12 +13,12 @@ Scripts provide command to :
 Bash Auto Completion is also provide
  
 
-Directory source projet layout 
+### Directory source projet layout 
 
- * bin  : scripts 
- * rpmbuild : rpm build directory
+ * *bin  : scripts*
+ * *rpmbuild : rpm build directory*
 
-## JBoss Standalone Instance layout 
+### JBoss Standalone Instance layout 
 
 def : instanceName
 

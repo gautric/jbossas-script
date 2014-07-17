@@ -1,5 +1,7 @@
 #!/bin/sh
 
+CURRENTDIR=$(pwd)
+
 #Clean
 rm -rf rpmbuild/SOURCES/*
 rm -rf rpmbuild/BUILD/*

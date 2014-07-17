@@ -14,7 +14,7 @@ tar -zvcf rpmbuild/SOURCES/jbossas-script.tar.gz jbossas-script
 rm -rf jbossas-script
 
 #Build RPM
-rpmbuild -bb rpmbuild/SPECS/jbossas-script.spec 
+rpmbuild --define "_topdir ${CURRENTDIR}/rpmbuild" -bb rpmbuild/SPECS/jbossas-script.spec
 
 #Test RPM
 sudo rpm -e jbossas-script 

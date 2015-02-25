@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# This script provides some 
+# This script provides some
 #
 
 # Retrieve jboss command directory
@@ -36,7 +36,7 @@ DEBUG PATH=$PATH
         ;;
 
         list)
-            jbossListIntance
+            jbossListInstance
             exit $RETVAL
         ;;
 
@@ -48,6 +48,6 @@ DEBUG PATH=$PATH
 	adduser)
            jbossAddUserInstance $2 $3 $4
            exit $RETVAL
-        ;;	
+        ;;
 
     esac

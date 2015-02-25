@@ -41,7 +41,7 @@ install -m 444 functions 		            ${RPM_BUILD_ROOT}/usr/share/jbossas-scrip
 install -m 755 jbossCreateInstance 	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 jbossDeleteInstance	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 jbossListConfiguration 	    ${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 755 jbossListIntance 	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 755 jbossListInstance 	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 444 etc_sysconfig_intanceName    ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 _jboss_complete.bash         ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 
@@ -80,4 +80,4 @@ rm -rf %{_topdir}/BUILD/%{name}
 
 %changelog
 * Fri Jun 20 2014 First Version
-- ${release} 
+- ${release}

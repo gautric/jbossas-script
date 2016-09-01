@@ -1,0 +1,11 @@
+[Unit]
+Description=JBoss EAP %i
+Documentation=JBoss EAP %i
+
+[Service]
+User=jboss
+Group=jboss
+EnvironmentFile=/etc/sysconfig/%i
+ExecStart=/usr/share/jbossas/bin/standalone.sh
+ExecStop=/usr/share/jbossas-script/jbossStopInstance %i
+EOF

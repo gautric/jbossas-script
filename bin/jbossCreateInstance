@@ -30,9 +30,6 @@ mkdir /var/log/jbossas/${INSTANCE_NAME}
 cp -rf ${JBOSS_EAP6_CONFIG_DIR}/${JBOSS_EAP6_CONFIG_NAME} /etc/jbossas/${INSTANCE_NAME}
 #rm -rf /etc/jbossas/${INSTANCE_NAME}/standalone-*.xml
 
-#Script system V
-#ln -sf /etc/init.d/jbossas /etc/init.d/${INSTANCE_NAME}
-
 #Ou Configuration tunnée
 cat ${JBOSS_EAP6_SYSTEM_CONFIG} | sed "s/XXX/${INSTANCE_NAME}/" > /etc/sysconfig/${INSTANCE_NAME}
 
@@ -64,10 +61,10 @@ mkdir ${JBOSS_BASE_DIR}/lib
 mkdir ${JBOSS_BASE_DIR}/lib/ext
 mkdir ${JBOSS_BASE_DIR}/modules
 
-ln -sf /var/log/jbossas/${INSTANCE_NAME}   		${JBOSS_BASE_DIR}/log
-ln -sf /var/cache/jbossas/${INSTANCE_NAME} 		${JBOSS_BASE_DIR}/tmp
-ln -sf /etc/jbossas/${INSTANCE_NAME}       		${JBOSS_BASE_DIR}/configuration
-ln -sf ${JBOSS_EAP6_DEFAULT_HOME}/bin/standalone.sh  	${JBOSS_BASE_DIR}/bin/standalone.sh
+ln -sf /var/log/jbossas/${INSTANCE_NAME}   		         ${JBOSS_BASE_DIR}/log
+ln -sf /var/cache/jbossas/${INSTANCE_NAME} 		         ${JBOSS_BASE_DIR}/tmp
+ln -sf /etc/jbossas/${INSTANCE_NAME}       		         ${JBOSS_BASE_DIR}/configuration
+ln -sf ${JBOSS_EAP6_DEFAULT_HOME}/bin/standalone.sh  	 ${JBOSS_BASE_DIR}/bin/standalone.sh
 
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/lib/jbossas/${INSTANCE_NAME}
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/log/jbossas/${INSTANCE_NAME}

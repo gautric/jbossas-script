@@ -53,7 +53,7 @@ User=${JBOSS_EAP6_DEFAULT_JBOSS_USER}
 Group=${JBOSS_EAP6_DEFAULT_JBOSS_GROUP}
 EnvironmentFile=/etc/sysconfig/${INSTANCE_NAME}
 ExecStart=/usr/share/jbossas/bin/standalone.sh
-ExecStop=kill $(ps -elf | grep '-Djboss.server.name=${INSTANCE_NAME}' | awk '{print $4}')
+ExecStop=/usr/bin/kill $(ps -elf | grep '-Djboss.server.name=${INSTANCE_NAME}' | awk '{print $4}')
 EOF
 
 

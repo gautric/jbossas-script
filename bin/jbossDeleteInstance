@@ -13,6 +13,7 @@ JBOSSPID=${JBOSSPID:-"/var/run/jbossas-$INSTANCE_NAME"}
 
 rm -rf /etc/sysconfig/${INSTANCE_NAME}
 rm -rf /lib/systemd/system/${INSTANCE_NAME}.service
+rm -rf /lib/systemd/system/jbossas@${INSTANCE_NAME}.service
 rm -rf /var/lib/jbossas/${INSTANCE_NAME}
 rm -rf /etc/jbossas/${INSTANCE_NAME}
 rm -rf /var/log/jbossas/${INSTANCE_NAME}

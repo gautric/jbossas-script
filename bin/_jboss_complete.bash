@@ -2,12 +2,11 @@
 # This script provides completion stuff for jboss script
 #
 
-JBOSS_EAP6_DEFAULT_INITD_SCRIPT=${JBOSS_INITD_SCRIPT:-"/etc/init.d/jbossas"}
-
 _jbossInstanceList()
 {
-    [ ! -f ${JBOSS_EAP6_DEFAULT_INITD_SCRIPT} ] && return ;
-    find  /etc/init.d/* -xtype l -follow -inum `ls -i ${JBOSS_EAP6_DEFAULT_INITD_SCRIPT} | cut -f1 -d' '` | cut -f4 -d'/'
+    JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE=${JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE:-"/usr/share/jbossas-script/jbossas.service"}
+    [ ! -f ${JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE} ] && return ;
+    find  /lib/systemd/system/* -xtype l -follow -inum `ls -i ${JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE} | awk '{print $1}'` | sed "s/.*@//" | sed "s/\.service//"
 }
 
 _jbossStartedInstance()
@@ -18,7 +17,7 @@ _jbossStartedInstance()
    do
      # Remove quotes
      p=`echo $var | tr -d '"'`
-     case $p in         
+     case $p in
        -Djboss.server.name=*)
          RET="$RET $(echo $p | cut -f2 -d=)"
        ;;

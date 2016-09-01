@@ -3,7 +3,7 @@
 Summary:        JBoss Script for JBoss RPM %{version}
 Name:           jbossas-script
 Version:        %{version}
-Release:        28
+Release:        30
 License:        GPL
 Source:         %{name}.tar.gz
 # This package doesn't contain any binary files so it's architecture independent, hence
@@ -38,12 +38,14 @@ install -m 755 jboss 		${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 jbossas.sh 	${RPM_BUILD_ROOT}/usr/share/jbossas-script
 
 install -m 444 functions 		                ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 etc_sysconfig_intanceName    ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+install -m 444 jbossas.service              ${RPM_BUILD_ROOT}/usr/share/jbossas-script
+
 install -m 755 jbossCreateInstance 	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 jbossDeleteInstance	        ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 jbossListConfiguration 	    ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 jbossListInstance 	          ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 jbossStopInstance 	          ${RPM_BUILD_ROOT}/usr/share/jbossas-script
-install -m 444 etc_sysconfig_intanceName    ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 install -m 755 _jboss_complete.bash         ${RPM_BUILD_ROOT}/usr/share/jbossas-script
 
 # Symbolic link

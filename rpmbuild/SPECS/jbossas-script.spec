@@ -1,9 +1,9 @@
-%global version 0.9
+%global version 1.0
 
 Summary:        JBoss Script for JBoss RPM %{version}
 Name:           jbossas-script
 Version:        %{version}
-Release:        5
+Release:        6
 License:        GPL
 Source:         %{name}.tar.gz
 # This package doesn't contain any binary files so it's architecture independent, hence
@@ -16,7 +16,7 @@ Requires:       bash
 Requires:       coreutils
 
 %description
-This package provides some script for JBoss EAP 6.X (RPM mode) %{name} %{version}
+This package provides some script for JBoss EAP 6.X (RPM mode) and RHEL 7 %{name} %{version}
 
 %prep
 %setup -n %{name}

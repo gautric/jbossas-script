@@ -36,14 +36,14 @@ cp -rf ${JBOSS_EAP6_CONFIG_DIR}/${JBOSS_EAP6_CONFIG_NAME} /etc/jbossas/${INSTANC
 #Ou Configuration tunnée
 cat ${JBOSS_EAP6_SYSTEM_CONFIG} | sed "s/XXX/${INSTANCE_NAME}/" > /etc/sysconfig/${INSTANCE_NAME}
 
-echo > /etc/sysconfig/${INSTANCE_NAME} <<EOF
+cat > /etc/sysconfig/${INSTANCE_NAME} <<EOF
 JBOSS_HOME=/usr/share/jbossas
 JAVA_OPTS=-Djboss.server.name=${INSTANCE_NAME} -Djboss.server.base.dir=/var/lib/jbossas/${INSTANCE_NAME} -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0
 JBOSS_MODULEPATH=/var/lib/jbossas/${INSTANCE_NAME}/modules:/usr/share/jbossas/modules
 EOF
 
 
-echo > /lib/systemd/system/${INSTANCE_NAME}.service <<EOF
+cat > /lib/systemd/system/${INSTANCE_NAME}.service <<EOF
 [Unit]
 Description={INSTANCE_NAME}
 Documentation=Application {INSTANCE_NAME}
@@ -53,7 +53,7 @@ User=${JBOSS_EAP6_DEFAULT_JBOSS_USER}
 Group=${JBOSS_EAP6_DEFAULT_JBOSS_GROUP}
 EnvironmentFile=/etc/sysconfig/${INSTANCE_NAME}
 ExecStart=/usr/share/jbossas/bin/standalone.sh
-ExecStop=/usr/bin/kill $(ps -elf | grep '-Djboss.server.name=${INSTANCE_NAME}' | awk '{print $4}')
+ExecStop=/usr/share/jbossas-script/jbossStopInstance ${INSTANCE_NAME}
 EOF
 
 

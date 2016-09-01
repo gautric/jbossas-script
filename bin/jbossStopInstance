@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. `dirname $0`/functions
+
+INSTANCE_NAME=${1}
+
+[ -z "${INSTANCE_NAME}" ] && ERROR "No instance name provided" &&  exit RETKO
+
+/usr/bin/kill $(ps -elf | grep '-Djboss.server.name=${INSTANCE_NAME}' | awk '{print $4}')
+
+exit $RETVAL

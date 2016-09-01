@@ -21,12 +21,12 @@ DEBUG PATH=$PATH
         ;;
 
         start)
-            service $2 start
+            systemctl start $2
             exit $RETVAL
         ;;
 
         stop)
-            service $2 stop
+            systemctl stop $2
             exit $RETVAL
         ;;
 
@@ -45,9 +45,19 @@ DEBUG PATH=$PATH
             exit $RETVAL
         ;;
 
-	adduser)
+	      adduser)
            jbossAddUserInstance $2 $3 $4
            exit $RETVAL
+        ;;
+
+        status)
+            systemctl status $2 
+            exit $RETVAL
+        ;;
+
+        *)
+           error "Please use options "
+           exit 1
         ;;
 
     esac

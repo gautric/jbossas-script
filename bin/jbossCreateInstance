@@ -45,8 +45,8 @@ EOF
 
 cat > /lib/systemd/system/${INSTANCE_NAME}.service <<EOF
 [Unit]
-Description={INSTANCE_NAME}
-Documentation=Application {INSTANCE_NAME}
+Description=${INSTANCE_NAME}
+Documentation=Application ${INSTANCE_NAME}
 
 [Service]
 User=${JBOSS_EAP6_DEFAULT_JBOSS_USER}

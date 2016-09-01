@@ -9,6 +9,6 @@ JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE=${JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE:-"/usr/sha
 
 [ ! -f ${JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE} ] && ERROR "Please check jbossas package" && exit $RETKO
 
-find  /lib/systemd/system/* -xtype l -follow -inum `ls -i ${JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE} | cut -f1 -d' '` | cut -f4 -d'/'
+find  /lib/systemd/system/* -xtype l -follow -inum `ls -i ${JBOSS_EAP6_DEFAULT_SYSCTL_SERVICE} | awk '{print $1}'` | sed "s/.*@//" | sed "s/\.service//"
 
 exit $RETVAL

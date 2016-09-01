@@ -19,6 +19,6 @@ rm -rf jbossas-script
 rpmbuild --define "_topdir ${CURRENTDIR}/rpmbuild" -bb rpmbuild/SPECS/jbossas-script.spec
 
 #Test RPM
-sudo rpm -e jbossas-script
-sudo rpm -Uvh rpmbuild/RPMS/noarch/*.rpm
+# rpm -e jbossas-script
+# rpm -Uvh rpmbuild/RPMS/noarch/*.rpm
 #cp rpmbuild/RPMS/noarch/*.rpm ~/JBoss/eap/RPMS

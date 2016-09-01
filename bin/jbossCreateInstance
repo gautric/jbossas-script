@@ -42,7 +42,6 @@ JAVA_OPTS=-Djboss.server.name=${INSTANCE_NAME} -Djboss.server.base.dir=/var/lib/
 JBOSS_MODULEPATH=/var/lib/jbossas/${INSTANCE_NAME}/modules:/usr/share/jbossas/modules
 EOF
 
-
 cat > /lib/systemd/system/${INSTANCE_NAME}.service <<EOF
 [Unit]
 Description=${INSTANCE_NAME}

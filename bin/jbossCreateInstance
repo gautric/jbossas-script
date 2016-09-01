@@ -21,20 +21,41 @@ INSTANCE_NAME=$1
 #Control
 [ -f /etc/sysconfig/${INSTANCE_NAME} ] && ERROR "L'instance '${INSTANCE_NAME}' existe déja " && exit 1
 
-JBOSS_BASE_DIR="/var/lib/jbossas/${INSTANCE_NAME}" 
+JBOSS_BASE_DIR="/var/lib/jbossas/${INSTANCE_NAME}"
 
 mkdir /var/cache/jbossas/${INSTANCE_NAME}
 mkdir /var/log/jbossas/${INSTANCE_NAME}
 
 #Ou Configuration tunnée
 cp -rf ${JBOSS_EAP6_CONFIG_DIR}/${JBOSS_EAP6_CONFIG_NAME} /etc/jbossas/${INSTANCE_NAME}
-rm -rf /etc/jbossas/${INSTANCE_NAME}/standalone-*.xml
+#rm -rf /etc/jbossas/${INSTANCE_NAME}/standalone-*.xml
 
 #Script system V
-ln -sf /etc/init.d/jbossas /etc/init.d/${INSTANCE_NAME}
+#ln -sf /etc/init.d/jbossas /etc/init.d/${INSTANCE_NAME}
 
 #Ou Configuration tunnée
 cat ${JBOSS_EAP6_SYSTEM_CONFIG} | sed "s/XXX/${INSTANCE_NAME}/" > /etc/sysconfig/${INSTANCE_NAME}
+
+echo > /etc/sysconfig/${INSTANCE_NAME} <<EOF
+JBOSS_HOME=/usr/share/jbossas
+JAVA_OPTS=-Djboss.server.name=${INSTANCE_NAME} -Djboss.server.base.dir=/var/lib/jbossas/${INSTANCE_NAME} -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0
+JBOSS_MODULEPATH=/var/lib/jbossas/${INSTANCE_NAME}/modules:/usr/share/jbossas/modules
+EOF
+
+
+echo > /lib/systemd/system/${INSTANCE_NAME}.service <<EOF
+[Unit]
+Description={INSTANCE_NAME}
+Documentation=Application {INSTANCE_NAME}
+
+[Service]
+User=${JBOSS_EAP6_DEFAULT_JBOSS_USER}
+Group=${JBOSS_EAP6_DEFAULT_JBOSS_GROUP}
+EnvironmentFile=/etc/sysconfig/${INSTANCE_NAME}
+ExecStart=/usr/share/jbossas/bin/standalone.sh
+ExecStop=kill $(ps -elf | grep '-Djboss.server.name=${INSTANCE_NAME}' | awk '{print $4}')
+EOF
+
 
 mkdir ${JBOSS_BASE_DIR}
 mkdir ${JBOSS_BASE_DIR}/bin
@@ -52,9 +73,8 @@ ln -sf ${JBOSS_EAP6_DEFAULT_HOME}/bin/standalone.sh  	${JBOSS_EAP6_DEFAULT_HOME}
 
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/lib/jbossas/${INSTANCE_NAME}
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/log/jbossas/${INSTANCE_NAME}
-chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/cache/jbossas/${INSTANCE_NAME} 
+chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/cache/jbossas/${INSTANCE_NAME}
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /etc/jbossas/${INSTANCE_NAME}
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /etc/sysconfig/${INSTANCE_NAME}
 
 exit $RETVAL
-

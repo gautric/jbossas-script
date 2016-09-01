@@ -23,6 +23,8 @@ rm -rf /etc/sysconfig/${INSTANCE_NAME}
 rm -rf ${JBOSSPID}
 rm -rf /var/lib/jbossas/${INSTANCE_NAME}/bin/standalone.sh
 
+systemctl daemon-reload
+
 INFO "JBoss instance ${INSTANCE_NAME} deleted"
 
 exit $RETVAL

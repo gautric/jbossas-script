@@ -6,7 +6,7 @@
 . `dirname $0`/functions
 
 JBOSS_EAP6_USER=${2:-"admin"}
-JBOSS_EAP6_PASSWORD=${3:-"admin123_"}
+JBOSS_EAP6_PASSWORD=${3:-"admin123!"}
 JBOSS_EAP6_REALM=${4:-"ManagementRealm"}
 JBOSS_EAP6_HOME=${JBOSS_HOME:-"/usr/share/jbossas"}
 JBOSS_EAP6_FILE=${JBOSS_EAP6_USERFILE:-"mgmt-users.properties"}

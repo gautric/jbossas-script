@@ -67,13 +67,14 @@ mkdir ${JBOSS_BASE_DIR}/modules
 ln -sf /var/log/jbossas/${INSTANCE_NAME}   		${JBOSS_BASE_DIR}/log
 ln -sf /var/cache/jbossas/${INSTANCE_NAME} 		${JBOSS_BASE_DIR}/tmp
 ln -sf /etc/jbossas/${INSTANCE_NAME}       		${JBOSS_BASE_DIR}/configuration
-ln -sf ${JBOSS_EAP6_DEFAULT_HOME}/modules/system     	${JBOSS_BASE_DIR}/modules/system
-ln -sf ${JBOSS_EAP6_DEFAULT_HOME}/bin/standalone.sh  	${JBOSS_EAP6_DEFAULT_HOME}/bin/${INSTANCE_NAME}.sh
+ln -sf ${JBOSS_EAP6_DEFAULT_HOME}/bin/standalone.sh  	${JBOSS_BASE_DIR}/bin/standalone.sh
 
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/lib/jbossas/${INSTANCE_NAME}
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/log/jbossas/${INSTANCE_NAME}
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /var/cache/jbossas/${INSTANCE_NAME}
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /etc/jbossas/${INSTANCE_NAME}
 chown -Rf ${JBOSS_EAP6_DEFAULT_JBOSS_USER}:${JBOSS_EAP6_DEFAULT_JBOSS_GROUP} /etc/sysconfig/${INSTANCE_NAME}
+
+INFO "JBoss instance ${INSTANCE_NAME} ok"
 
 exit $RETVAL

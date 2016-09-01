@@ -3,7 +3,7 @@
 Summary:        JBoss Script for JBoss RPM %{version}
 Name:           jbossas-script
 Version:        %{version}
-Release:        24
+Release:        25
 License:        GPL
 Source:         %{name}.tar.gz
 # This package doesn't contain any binary files so it's architecture independent, hence

@@ -12,6 +12,8 @@ rm -rf rpmbuild/RPMS/*
 mkdir jbossas-script
 cp -rf bin/* jbossas-script
 rm -f jbossas-script/*~
+
+mkdir rpmbuild/SOURCES
 tar -zvcf rpmbuild/SOURCES/jbossas-script.tar.gz jbossas-script
 rm -rf jbossas-script
 
